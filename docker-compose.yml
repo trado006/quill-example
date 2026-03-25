@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: docker
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+      - "9000:9000"
+      - "9080:9080"
+    # restart: always
