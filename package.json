@@ -29,6 +29,7 @@
     "start": "run-p start:*",
     "start:quill": "npm start -w quill",
     "start:website": "NEXT_PUBLIC_LOCAL_QUILL=true npm start -w website",
+    "start:demo": "npm start -w demo",
     "lint": "npm run lint -ws"
   },
   "keywords": [
