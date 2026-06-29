@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuillJS Full Editor</title>
+
+<!-- Quill CSS -->
+<link href="https://cdn.quilljs.com/2.0.3/quill.snow.css" rel="stylesheet">
+
+<style>
+    body {
+        margin: 30px;
+        font-family: Arial, sans-serif;
+    }
+
+    #editor {
+        height: 500px;
+        background: white;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 200px;
+        margin-top: 20px;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>QuillJS Full Feature Editor</h2>
+
+
+<!-- Toolbar -->
+<div id="toolbar">
+
+<select class="ql-font">
+    <option selected></option>
+    <option value="serif"></option>
+    <option value="monospace"></option>
+</select>
+
+
+<select class="ql-size">
+    <option value="small"></option>
+    <option selected></option>
+    <option value="large"></option>
+    <option value="huge"></option>
+</select>
+
+
+<button class="ql-bold"></button>
+<button class="ql-italic"></button>
+<button class="ql-underline"></button>
+<button class="ql-strike"></button>
+
+
+<select class="ql-color"></select>
+<select class="ql-background"></select>
+
+
+<select class="ql-header">
+    <option value="1"></option>
+    <option value="2"></option>
+    <option value="3"></option>
+    <option value="4"></option>
+    <option value="5"></option>
+    <option value="6"></option>
+    <option selected></option>
+</select>
+
+
+<button class="ql-blockquote"></button>
+<button class="ql-code-block"></button>
+
+
+<button class="ql-list" value="ordered"></button>
+<button class="ql-list" value="bullet"></button>
+
+
+<button class="ql-indent" value="-1"></button>
+<button class="ql-indent" value="+1"></button>
+
+
+<select class="ql-align"></select>
+
+
+<button class="ql-link"></button>
+<button class="ql-image"></button>
+<button class="ql-video"></button>
+
+
+<button class="ql-clean"></button>
+
+</div>
+
+
+<!-- Editor -->
+<div id="editor">
+
+<h1>Hello QuillJS</h1>
+
+<p>
+Đây là trình soạn thảo văn bản sử dụng QuillJS.
+</p>
+
+</div>
+
+
+<button onclick="saveContent()">
+Save Content
+</button>
+
+
+<h3>HTML Output</h3>
+
+<textarea id="output"></textarea>
+
+
+<h3>Delta Output</h3>
+
+<textarea id="delta"></textarea>
+
+
+</div>
+
+
+
+<!-- Quill JS -->
+<script src="https://cdn.quilljs.com/2.0.3/quill.js"></script>
+
+
+<script>
+
+
+const quill = new Quill('#editor', {
+
+    theme: 'snow',
+
+    modules: {
+
+        toolbar: '#toolbar',
+
+        history: {
+            delay: 1000,
+            maxStack: 100,
+            userOnly: true
+        }
+
+    }
+
+
+});
+
+
+
+// Custom image handler
+const toolbar = quill.getModule('toolbar');
+
+
+toolbar.addHandler('image', function(){
+
+    let url = prompt(
+        "Nhập URL hình ảnh:"
+    );
+
+
+    if(url){
+
+        let range = quill.getSelection();
+
+        quill.insertEmbed(
+            range.index,
+            'image',
+            url
+        );
+
+    }
+
+});
+
+
+
+
+// Save data
+
+function saveContent(){
+
+    let html =
+        quill.root.innerHTML;
+
+
+    let delta =
+        JSON.stringify(
+            quill.getContents(),
+            null,
+            2
+        );
+
+
+    document
+    .getElementById('output')
+    .value = html;
+
+
+    document
+    .getElementById('delta')
+    .value = delta;
+
+
+    console.log(html);
+    console.log(delta);
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
