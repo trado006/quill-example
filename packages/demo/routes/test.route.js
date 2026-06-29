@@ -25,5 +25,9 @@ router.get('/quill', function(req, res, next) {
   res.render('test/quill.ejs', { name: 'EJS engine' });
 });
 
+router.get('/contenteditable', function(req, res, next) {
+  res.render('test/contenteditable.ejs', { name: 'EJS engine' });
+});
+
 
 module.exports = router;
