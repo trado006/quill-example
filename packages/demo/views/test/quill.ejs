@@ -192,20 +192,34 @@ toolbar.addHandler('image', function(){
 
 });
 
-quill.on(
-    'editor-change',
-    function(eventName, ...args){
+// quill.on(
+//     'editor-change',
+//     function(eventName, ...args){
 
-        console.log(
-            "EVENT:",
-            eventName
-        );
+//         console.log(
+//             "EVENT:",
+//             eventName
+//         );
 
-        console.log(args);
+//         console.log(args);
 
-    }
-);
+//     }
+// );
 
+quill.on('text-change', function(delta, oldDelta, source) {
+
+    console.log("Nội dung thay đổi");
+
+    console.log("Delta:");
+    console.log(delta);
+
+    console.log("Old Delta:");
+    console.log(oldDelta);
+
+    console.log("Source:");
+    console.log(source);
+
+});
 
 // Save data
 
