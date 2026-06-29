@@ -9,19 +9,24 @@ RUN apk add --no-cache supervisor bash
 # RUN addgroup -g ${GID} -S app && adduser -u ${UID} -S -G app app
 
 # Copy config supervisor
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# COPY entrypoint.sh /entrypoint.sh
+# RUN chmod +x /entrypoint.sh
 
 # Copy config supervisor
-COPY supervisord.conf /etc/supervisord.conf
+# COPY supervisord.conf /etc/supervisord.conf
+
+# Copy boot file
+COPY index.sh /index.sh
+RUN chmod +x /index.sh
+
+# RUN mkdir -p /home/app
+
+# Switch to non-root user
+USER node
 
 # Copy app
 WORKDIR /app
 
 EXPOSE 3000 9000 9080
 
-# Switch to non-root user
-USER node
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/index.sh"]
